@@ -33,6 +33,28 @@ python combine.py -b <base_molecule> -a <add_molecule> [-o OUTPUT_PATH]
 
 #### Arguments: 
 
-* `-b/--base`: Path to a SMILES file (.txt, .smi, .sdf) or a single SMILES string.
-* -a/--add: Path to a SMILES file or a single SMILES string.
-* -o/--output (optional): Output file (.txt) or folder. Default: ./output/<timestamp>.txt
+* `-b/--base`: Path to a SMILES file `(.txt, .smi, .sdf)` or a single SMILES string.
+* `-a/--add`: Path to a SMILES file or a single SMILES string.
+* `-o/--output`: (optional): Output file `(.txt)` or folder. Default: `./output/<timestamp>.txt`
+
+#### Examples: 
+
+1. Combine two SMILES strings: 
+
+```bash
+python combine.py -b "C1=C2C(=NC=N1)N=CN2" -a "CNC[C@@H](C)O" -o results.txt  
+```
+
+2. Use files as input: 
+
+```bash
+python combine.py -b base_molecules.sdf -a add_molecules.txt -o 
+```
+
+
+#### Output Behavior: 
+* If `-o` points to a .txt file: Appends results to the file.
+
+* If `-o` points to a folder: Creates a timestamped .txt file in the folder.
+
+* If `-o` is omitted: Saves to `./output/<timestamp>.txt`.
