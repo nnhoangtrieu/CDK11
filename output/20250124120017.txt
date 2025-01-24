@@ -1,0 +1,15 @@
+C[C@@H](O)CNCc1ncnc2nc[nH]c12
+C[C@@H](O)CN(C)c1ncnc2nc[nH]c12
+CNC(c1ncnc2nc[nH]c12)[C@@H](C)O
+CNC[C@H](O)Cc1ncnc2nc[nH]c12
+CNC[C@@H](C)Oc1ncnc2nc[nH]c12
+C[C@@H](O)CNCc1ncc2[nH]cnc2n1
+C[C@@H](O)CN(C)c1ncc2[nH]cnc2n1
+CNC(c1ncc2[nH]cnc2n1)[C@@H](C)O
+CNC[C@H](O)Cc1ncc2[nH]cnc2n1
+CNC[C@@H](C)Oc1ncc2[nH]cnc2n1
+C[C@@H](O)CNCc1nc2ncncc2[nH]1
+C[C@@H](O)CN(C)c1nc2ncncc2[nH]1
+CNC(c1nc2ncncc2[nH]1)[C@@H](C)O
+CNC[C@H](O)Cc1nc2ncncc2[nH]1
+CNC[C@@H](C)Oc1nc2ncncc2[nH]1

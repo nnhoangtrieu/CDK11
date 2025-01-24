@@ -26,8 +26,7 @@ def mol(x) :
 def smiles(x) : 
     return Chem.MolToSmiles(x)
 
-def extension(path) : 
-    return path.split('.')[-1]
+
 
 
 def draw(x) : 
@@ -42,7 +41,7 @@ def auto_add(x, y) :
     combo = CombineMols(x, y) 
     output = []
 
-    for i in tqdm(range(x.GetNumAtoms())) :
+    for i in range(x.GetNumAtoms()) :
         for j in range(x.GetNumAtoms(), combo.GetNumAtoms()) :
             for b in [Chem.rdchem.BondType.SINGLE, Chem.rdchem.BondType.DOUBLE, Chem.rdchem.BondType.TRIPLE] :
                 combo_editable = EditableMol(combo)
@@ -57,18 +56,18 @@ def auto_add(x, y) :
 
 def read_smi(path, delimiter='\t', titleLine=False) : 
     result = [] 
-    if extension(path) == 'txt' : 
+    if path.endswith('.txt') : 
         with open(path, 'r') as f : 
             for smi in tqdm(f.readlines(), desc='Reading SMILES') : 
                 if Chem.MolFromSmiles(smi) is not None : 
                     result.append(smi.strip())
-    elif extension(path) == 'sdf' : 
+    elif path.endswith('.sdf') : 
         supplier = Chem.SDMolSupplier(path)
         for mol in tqdm(supplier, desc='Reading SMILES') : 
             if mol is None : 
                 continue 
             result.append(Chem.MolToSmiles(mol))
-    elif extension(path) == 'smi' : 
+    elif path.endswith('.smi') : 
         supplier = Chem.SmilesMolSupplier(path, delimiter=delimiter, titleLine=titleLine)
         for mol in tqdm(supplier, desc='Reading SMILES') : 
             if mol is None : 
@@ -77,10 +76,18 @@ def read_smi(path, delimiter='\t', titleLine=False) :
     return result
 
 
-def validate_arg(x) :
+def extract_smiles(x) :
     smi_list = read_smi(x)
     if not smi_list : 
         smi = x 
         if not mol(smi) : print(f'{smi} is not a valid SMILES string'); exit() 
         else : return [smi] 
     return smi_list
+
+
+
+def save(data, path, mode='w') : 
+    if path.endswith('.txt') : 
+        with open(path, mode) as f : 
+            for line in data : 
+                f.write(line+'\n')
