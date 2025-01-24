@@ -19,4 +19,12 @@ A Python script to generate combinatorial molecular structures by connecting two
 - Required packages: `rdkit` and `tqdm`.
 
 ```bash
-pip install rdkit-pypi tqdm
+pip install rdkit tqdm
+
+--- 
+
+## Usage 
+
+### Basic Command 
+
+
