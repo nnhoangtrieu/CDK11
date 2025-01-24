@@ -1,5 +1,6 @@
 import copy 
 import rdkit 
+from tqdm import tqdm 
 from rdkit import Chem
 from rdkit.Chem import Draw, SanitizeMol, EditableMol
 from rdkit.Chem.rdmolops import CombineMols
@@ -25,11 +26,13 @@ def mol(x) :
 def smiles(x) : 
     return Chem.MolToSmiles(x)
 
+def extension(path) : 
+    return path.split('.')[-1]
+
 
 def draw(x) : 
     if type(x) == str : x = mol(x)
     Draw.MolToImage(x).show()
-
 
 
 def auto_add(x, y) : 
@@ -39,17 +42,45 @@ def auto_add(x, y) :
     combo = CombineMols(x, y) 
     output = []
 
-    for i in range(x.GetNumAtoms()) :
+    for i in tqdm(range(x.GetNumAtoms())) :
         for j in range(x.GetNumAtoms(), combo.GetNumAtoms()) :
             for b in [Chem.rdchem.BondType.SINGLE, Chem.rdchem.BondType.DOUBLE, Chem.rdchem.BondType.TRIPLE] :
                 combo_editable = EditableMol(combo)
                 combo_editable.AddBond(i, j, order=b)
-
                 try : 
                     SanitizeMol(combo_editable.GetMol())
                     output.append(smiles(combo_editable.GetMol()))
-                except :
-                    print('Failed')
+                except : pass
     return output
 
 
+
+def read_smi(path, delimiter='\t', titleLine=False) : 
+    result = [] 
+    if extension(path) == 'txt' : 
+        with open(path, 'r') as f : 
+            for smi in tqdm(f.readlines(), desc='Reading SMILES') : 
+                if Chem.MolFromSmiles(smi) is not None : 
+                    result.append(smi.strip())
+    elif extension(path) == 'sdf' : 
+        supplier = Chem.SDMolSupplier(path)
+        for mol in tqdm(supplier, desc='Reading SMILES') : 
+            if mol is None : 
+                continue 
+            result.append(Chem.MolToSmiles(mol))
+    elif extension(path) == 'smi' : 
+        supplier = Chem.SmilesMolSupplier(path, delimiter=delimiter, titleLine=titleLine)
+        for mol in tqdm(supplier, desc='Reading SMILES') : 
+            if mol is None : 
+                continue 
+            result.append(Chem.MolToSmiles(mol))
+    return result
+
+
+def validate_arg(x) :
+    smi_list = read_smi(x)
+    if not smi_list : 
+        smi = x 
+        if not mol(smi) : print(f'{smi} is not a valid SMILES string'); exit() 
+        else : return [smi] 
+    return smi_list
