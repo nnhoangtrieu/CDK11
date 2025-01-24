@@ -33,6 +33,6 @@ python combine.py -b <base_molecule> -a <add_molecule> [-o OUTPUT_PATH]
 
 #### Arguments: 
 
-* -b/--base: Path to a SMILES file (.txt, .smi, .sdf) or a single SMILES string.
+* `-b/--base`: Path to a SMILES file (.txt, .smi, .sdf) or a single SMILES string.
 * -a/--add: Path to a SMILES file or a single SMILES string.
 * -o/--output (optional): Output file (.txt) or folder. Default: ./output/<timestamp>.txt
