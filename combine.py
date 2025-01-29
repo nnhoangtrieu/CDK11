@@ -14,6 +14,7 @@ time = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
 parser = argparse.ArgumentParser(description='Combine molecules')
 parser.add_argument('-b', '--base', type=str, help='Can be either path to a list of SMILES or a SMILES string')
 parser.add_argument('-a', '--add', type=str, help='Can be either path to a list of SMILES or a SMILES string')
+parser.add_argument('-ms', '--manual_select', type=int, help='Manually select the molecules to combine', default=0)
 parser.add_argument('-o', '--output', type=str, help='Output file path (Either point to a folder or .txt file)', default=None)
 args = parser.parse_args()
 
@@ -23,7 +24,7 @@ add = extract_smiles(args.add)
 RDLogger.DisableLog('rdApp.*')
 for i, b in enumerate(tqdm(base, desc='Combining...')) : 
     for a in tqdm(add, desc=f'Combine base molecule {i+1}') : 
-        combinable_mol = auto_add(b, a)
+        combinable_mol = auto_add(b, a, manual_select=args.manual_select)
 
     if args.output : 
         if (args.output).endswith('.txt') : save(combinable_mol, args.output, mode='a') 
