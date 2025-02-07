@@ -99,3 +99,5 @@ def save(data, path, mode='w') :
         with open(path, mode) as f : 
             for line in data : 
                 f.write(line+'\n')
+
+
