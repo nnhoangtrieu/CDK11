@@ -26,11 +26,6 @@ def mol(x) :
 def smiles(x) : 
     return Chem.MolToSmiles(x)
 
-
-
-
-
-
 def draw(x):
     if isinstance(x, str):
         x = Chem.MolFromSmiles(x)
@@ -39,11 +34,10 @@ def draw(x):
 
 
 def select_atom_to_add(x) : 
-    if type(x) == str : x = mol(x)
-    draw(idx_annotate(x))
-    add_atom = int(input("Select atom to add to: "))
+    if type(x) == str : mol = mol(x)
+    draw(idx_annotate(mol))
+    add_atom = int(input(f"Select atom in {x} to add to: "))
     return add_atom
-
 
 def auto_add(x, y, selected_atom=None) : 
     if type(x) == str : x = mol(x)
@@ -89,7 +83,6 @@ def read_smi(path, delimiter='\t', titleLine=False) :
             result.append(Chem.MolToSmiles(mol))
     return result
 
-
 def extract_smiles(x) :
     smi_list = read_smi(x)
     if not smi_list : 
@@ -97,8 +90,6 @@ def extract_smiles(x) :
         if not mol(smi) : print(f'{smi} is not a valid SMILES string'); exit() 
         else : return [smi] 
     return smi_list
-
-
 
 def save(data, path, mode='w') : 
     if path.endswith('.txt') : 
