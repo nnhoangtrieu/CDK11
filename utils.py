@@ -29,25 +29,31 @@ def smiles(x) :
 
 
 
-def draw(x) : 
+
+
+def draw(x):
+    if isinstance(x, str):
+        x = Chem.MolFromSmiles(x)
+    img = Draw.MolToImage(x)
+    img.show() 
+
+
+def select_atom_to_add(x) : 
     if type(x) == str : x = mol(x)
-    Draw.MolToImage(x).show()
+    draw(idx_annotate(x))
+    add_atom = int(input("Select atom to add to: "))
+    return add_atom
 
 
-def auto_add(x, y, manual_select=False) : 
+def auto_add(x, y, selected_atom=None) : 
     if type(x) == str : x = mol(x)
     if type(y) == str : y = mol(y)
     
     combo = CombineMols(x, y) 
     output = []
-    add_atom = None
-
-    if manual_select : 
-        draw(idx_annotate(x))
-        add_atom = int(input("Select atom to add to: "))
 
     for i in range(x.GetNumAtoms()) :
-        if add_atom is not None: i = add_atom
+        if selected_atom is not None: i = selected_atom
         for j in range(x.GetNumAtoms(), combo.GetNumAtoms()) :
             for b in [Chem.rdchem.BondType.SINGLE, Chem.rdchem.BondType.DOUBLE, Chem.rdchem.BondType.TRIPLE] :
                 combo_editable = Chem.EditableMol(combo)
@@ -57,7 +63,7 @@ def auto_add(x, y, manual_select=False) :
                     Chem.SanitizeMol(combo_editable.GetMol())
                     output.append(Chem.MolToSmiles(combo_editable.GetMol()))
                 except : pass
-        if add_atom is not None: break
+        if selected_atom is not None: break
     return output
 
 
