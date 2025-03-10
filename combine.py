@@ -34,8 +34,8 @@ if len(base) == 1 and args.manual_select :
     selected_atom.append(select_atom_to_add(base[0]))
 
 
-for i, b in enumerate(tqdm(base, desc='Combining...')) : 
-    for a in tqdm(add, desc=f'Combine base molecule {i+1}') : 
+for i, b in enumerate(base) : 
+    for a in tqdm(add, desc=f'Combine base molecule {i+1}/{len(base)}') : 
         combinable_mol = auto_add(b, a, selected_atom[i] if args.manual_select else None)
 
     if args.output : 
