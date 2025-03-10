@@ -34,8 +34,8 @@ def draw(x):
 
 
 def select_atom_to_add(x) : 
-    if type(x) == str : mol = mol(x)
-    draw(idx_annotate(mol))
+    if type(x) == str : mol_x = mol(x)
+    draw(idx_annotate(mol_x))
     add_atom = int(input(f"Select atom in {x} to add to: "))
     return add_atom
 
