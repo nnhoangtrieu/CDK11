@@ -28,13 +28,14 @@ pip install rdkit tqdm
 ### Basic Command 
 
 ```bash
-python combine.py -b <base_molecule> -a <add_molecule> [-o OUTPUT_PATH]
+python combine.py -b <base_molecule> -a <add_molecule> [-ms --manual_select BOOLEAN] [-o OUTPUT_PATH]
 ```
 
 #### Arguments: 
 
 * `-b/--base`: Path to a SMILES file `(.txt, .smi, .sdf)` or a single SMILES string.
 * `-a/--add`: Path to a SMILES file or a single SMILES string.
+* `-ms/--manual_select`: Boolean flag to enable manual atom selection in the base molecule for combining. If set to `True`, images of base molecules will be shown and the user will be prompted to choose the which atom to add to.
 * `-o/--output`: (optional): Output file `(.txt)` or folder. Default: `./output/<timestamp>.txt`
 
 #### Examples: 
