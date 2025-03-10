@@ -24,7 +24,7 @@ selected_atom = []
 if len(base) > 1 and args.manual_select :
     print(f'\nYou have {len(base)} base molecules in your list')
     print(f'As you have selected to mannually select the atom to combine, you will be prompted to select the atom for every base molecules in your list')
-    agree = input('Do you want to continue? (y/n)\n')
+    agree = input('Do you want to continue? (y/n) ')
     if agree.lower() != 'y' : exit()   
     else : 
         for x in base : 
