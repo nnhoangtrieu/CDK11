@@ -56,7 +56,7 @@ for i, b in enumerate(base) :
 
 
 
-if args.unique_filter : 
+if args.filter : 
     print('Filtering out duplicates and recheck validity...')
     unique_mols = list(set(read_smi(output_path)))
     save(unique_mols, output_path, 'w')
