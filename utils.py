@@ -29,7 +29,7 @@ def smiles(x) :
 def draw(x):
     if isinstance(x, str):
         x = Chem.MolFromSmiles(x)
-    img = Draw.MolToImage(x)
+    img = Draw.MolToImage(x, size=(800, 800))
     img.show() 
 
 
